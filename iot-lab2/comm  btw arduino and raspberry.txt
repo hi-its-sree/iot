@@ -1,0 +1,33 @@
+#include<<Arduino.h>
+int led=13;
+void setup()
+{
+pinMode(led, OUTPUT);
+Serial.begin(9600); //default baud rate for bt 38400
+}
+void loop()
+{
+if(Serial.available())
+{
+int a=Serial.parseInt();
+Serial.println(a);
+if (a==1)
+{
+digitalWrite(led, HIGH);
+}
+if (a == 0)
+{
+digitalWrite(led, LOW);
+}
+}
+}
+
+
+Raspberry Pi Program:
+import serial
+import time
+bluetooth=serial.Serial("/dev/rfcomm7",9600)
+while True:
+a=input("enter:-")
+string='X{0}'.format(a)
+bluetooth.write(string.encode("utf-8"))
